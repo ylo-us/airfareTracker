@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="utf-8" />
+        <title>kukulo's JS project</title>
+        <link rel="stylesheet" href="css\cssGoogle.css"/>
+    </head>
+    <body>
+        <div id="main">
+            <h1>Flight Ticket Tracker</h1>
+            <form id="form">
+                </br>
+                From: <input type="text" id="origin" value="" style="text-transform:uppercase">
+                To:   <input type="text" id="destination" value="" style="text-transform:uppercase">
+                </br> </br>
+                Date: <input type="date" id="date" />
+                </br> </br>
+                <div id="maxSolution">Max Number of Results: 
+                    <input type="text" id="solution" value=""/>
+                </div>
+                </br>
+
+                <table>
+                    <td id="adultNum">Adult: </td>
+                    <td id="infantLapNum">Infant(Lap): </td>
+                    <td id="infantSeatNum">Infant(Seat): </td>
+                    <td id="childNum">Child: </td>
+                    <td id="seniorNum">Senior: </td>
+                </table>                
+
+                </br>
+                <div id="options" class="goog-zippy-header goog-zippy-collapsed" aria-expanded="false">
+                    Request Options
+                </div>
+                <div id="content" style="overflow: hidden; display: none">
+                    <table id="optionsContent" calss="control-table" style="margin-top: 0px;">
+                        <tbody>
+                            <tr>
+                                <td colspan="3" class="labeled-control">
+                                    <div id="maxPrice">Budget (USD): 
+                                        <input type="text" id="price" placeholder="e.g. 300" value=""/>
+                                    </div>
+                                </td>
+                            
+                                <td>
+                                    <div id="saleCountry">Sale Country: 
+                                        <input type="text" id="country" value="" style="text-transform:uppercase"/>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div id="refundable">Refundable? 
+                                        <input type="checkbox" id="refund">
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+            </br>
+            <input type="button" id="getRequest" value="Get Result!"/> </br>
+        </div>
+        <script src="scripts\json2.js"></script>
+        <script src="scripts\main.js"></script>
+        
+<!--
+        <script src="scripts\sandbox.js"></script>
+        <script src="scripts\json2.js"></script>
+        <script src="scripts\main.js"></script>
+-->
+
+    </body>
+</html>
