@@ -3,7 +3,8 @@
     <head>
         <meta charset="utf-8" />
         <title>kukulo's JS project</title>
-        <link rel="stylesheet" href="css\cssGoogle.css"/>
+        <!-- <link rel="stylesheet" href="css\cssGoogle.css"/> -->
+        <link rel="stylesheet" href="css\loading.css"/>
     </head>
     <body>
         <div id="main">
@@ -15,54 +16,58 @@
                 </br> </br>
                 Date: <input type="date" id="date" />
                 </br> </br>
-                <div id="maxSolution">Max Number of Results: 
+                <div id="maxSolution">Max Number of Searches: 
                     <input type="text" id="solution" value=""/>
                 </div>
                 </br>
 
                 <table>
                     <td id="adultNum">Adult: </td>
-                    <td id="infantLapNum">Infant(Lap): </td>
-                    <td id="infantSeatNum">Infant(Seat): </td>
                     <td id="childNum">Child: </td>
-                    <td id="seniorNum">Senior: </td>
+                    <td id="stopNum">Stops: </td>
                 </table>                
 
                 </br>
-                <div id="options" class="goog-zippy-header goog-zippy-collapsed" aria-expanded="false">
-                    Request Options
+                <div id="options" background="#E0E1EF" class="optionSection" aria-expanded="false">
+                    <i>Request Options</i>
+                    <div id="content" style="overflow: hidden; display: none">
+                        <table id="optionsContent" calss="control-table" style="margin-top: 0px;">
+                            <tbody>
+                                <tr>
+                                    <td colspan="3" class="labeled-control">
+                                        <div id="maxPrice">Budget (USD): 
+                                            <input type="text" id="price" placeholder="e.g. 300" value=""/>
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <div id="saleCountry">Sale Country: 
+                                            <input type="text" id="country" value="" style="text-transform:uppercase"/>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div id="refundable">Refundable? 
+                                            <input type="checkbox" id="refund">
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <div id="content" style="overflow: hidden; display: none">
-                    <table id="optionsContent" calss="control-table" style="margin-top: 0px;">
-                        <tbody>
-                            <tr>
-                                <td colspan="3" class="labeled-control">
-                                    <div id="maxPrice">Budget (USD): 
-                                        <input type="text" id="price" placeholder="e.g. 300" value=""/>
-                                    </div>
-                                </td>
-                            
-                                <td>
-                                    <div id="saleCountry">Sale Country: 
-                                        <input type="text" id="country" value="" style="text-transform:uppercase"/>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div id="refundable">Refundable? 
-                                        <input type="checkbox" id="refund">
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                
             </form>
             </br>
-            <input type="button" id="getRequest" value="Get Result!"/> </br>
+            <input type="button" id="getRequest" value="Get Result!"/> </br> </br>
+            <div class="loader">
+              <div class="line"></div>
+              <div class="line"></div>
+              <div class="line"></div>
+              <div class="line"></div>
+            </div>
+            </br>
         </div>
-        <script src="scripts\json2.js"></script>
         <script src="scripts\main.js"></script>
-        
 <!--
         <script src="scripts\sandbox.js"></script>
         <script src="scripts\json2.js"></script>
