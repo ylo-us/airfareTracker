@@ -1,5 +1,6 @@
 var sendButton = document.getElementById("getRequest");
 var requestOption = document.getElementById("options");
+var requestOptionTxt = document.getElementById("requestOptionTxt");
 var requestContent = document.getElementById("optionsContent");
 var divContent = document.getElementById("content");
 var optionCollapse = true;
@@ -74,6 +75,16 @@ requestOption.addEventListener("click", function() {
     }
 })
 
+//======================================================================================
+/*
+requestOptionTxt.addEventListener("mouseover", function() {
+    requestOptionTxt.setAttribute("style", "background-color: yellow");
+})
+
+requestOptionTxt.addEventListener("mouseout", function() {
+    requestOptionTxt.setAttribute("style", "background-color: bisque");
+})
+*/
 //======================================================================================
 sendButton.addEventListener("click", function() {
     

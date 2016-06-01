@@ -1,5 +1,15 @@
-.resultContent {
-    font-family: lucida console;
+body {
+    font-family: sans-serif;
+}
+
+h4:hover {
+    background-color: bisque;
+    text-decoration: underline;
+    text-decoration-color: aqua;
+}
+
+.inputAirport {
+    width: 200px;
 }
 
 .loader {

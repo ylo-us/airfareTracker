@@ -11,8 +11,9 @@
             <h1>Flight Ticket Tracker</h1>
             <form id="form">
                 </br>
-                From: <input type="text" id="origin" value="" style="text-transform:uppercase">
-                To:   <input type="text" id="destination" value="" style="text-transform:uppercase">
+                From: <input type="text" class="inputAirport" id="origin" value="" style="text-transform:uppercase" placeholder="city code here, ex: SFO">
+                To:   <input type="text" class="inputAirport" id="destination" value="" style="text-transform:uppercase" placeholder="city code here, ex: SFO">
+                <a href="http://www.airportcodes.us/us-airports.htm" target="_blank">Looking for City Code?</a>
                 </br> </br>
                 Date: <input type="date" id="date" />
                 </br> </br>
@@ -29,7 +30,7 @@
 
                 </br>
                 <div id="options" background="#E0E1EF" class="optionSection" aria-expanded="false">
-                    <i>Request Options</i>
+                    <h4 id="requestOptionTxt"><i>Request Options</i></h4>
                     <div id="content" style="overflow: hidden; display: none">
                         <table id="optionsContent" calss="control-table" style="margin-top: 0px;">
                             <tbody>
