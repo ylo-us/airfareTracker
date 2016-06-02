@@ -3,22 +3,23 @@
     <head>
         <meta charset="utf-8" />
         <title>kukulo's JS project</title>
-        <!-- <link rel="stylesheet" href="css\cssGoogle.css"/> -->
         <link rel="stylesheet" href="css\loading.css"/>
     </head>
     <body>
         <div id="main">
             <h1>Flight Ticket Tracker</h1>
-            <form id="form">
+            <div id="userInput">
                 </br>
-                From: <input type="text" class="inputAirport" id="origin" value="" style="text-transform:uppercase" placeholder="city code here, ex: SFO">
-                To:   <input type="text" class="inputAirport" id="destination" value="" style="text-transform:uppercase" placeholder="city code here, ex: SFO">
-                <a href="http://www.airportcodes.us/us-airports.htm" target="_blank">Looking for City Code?</a>
+                <div>
+                    <label>From: </label><input type="text" class="inputAirport" id="origin" value="" placeholder="City Code Here. Ex: SFO"> </br> </br>
+                <label>To: </label><input type="text" class="inputAirport" id="destination" value="" placeholder="City Code Here. Ex: SFO">
+                <a id="cityCode" href="http://www.airportcodes.us/us-airports.htm" target="_blank">Looking for City Code?</a>
                 </br> </br>
-                Date: <input type="date" id="date" />
+                Date: <input type="date" id="date">
                 </br> </br>
-                <div id="maxSolution">Max Number of Searches: 
-                    <input type="text" id="solution" value=""/>
+                </div>
+                <div id="maxSolution">Max # of Searches: 
+                    <input type="text" id="solution" value="">
                 </div>
                 </br>
 
@@ -40,12 +41,15 @@
                                             <input type="text" id="price" placeholder="e.g. 300" value=""/>
                                         </div>
                                     </td>
-
+                                </tr>
+                           <!-- <tr>
                                     <td>
                                         <div id="saleCountry">Sale Country: 
                                             <input type="text" id="country" value="" style="text-transform:uppercase"/>
                                         </div>
                                     </td>
+                                </tr> -->
+                                <tr>
                                     <td>
                                         <div id="refundable">Refundable? 
                                             <input type="checkbox" id="refund">

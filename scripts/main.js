@@ -1,6 +1,5 @@
 var sendButton = document.getElementById("getRequest");
-var requestOption = document.getElementById("options");
-var requestOptionTxt = document.getElementById("requestOptionTxt");
+var requestOption = document.getElementById("requestOptionTxt");
 var requestContent = document.getElementById("optionsContent");
 var divContent = document.getElementById("content");
 var optionCollapse = true;
@@ -76,21 +75,20 @@ requestOption.addEventListener("click", function() {
 })
 
 //======================================================================================
-/*
-requestOptionTxt.addEventListener("mouseover", function() {
-    requestOptionTxt.setAttribute("style", "background-color: yellow");
-})
+function createTr(className, tableObj, insertedTxt) {
+    var tr = tableObj.insertRow(-1);
+    tr.setAttribute("class", className);
+    var trTxt = tr.insertCell(0);
+    trTxt.innerHTML = insertedTxt;
+}
 
-requestOptionTxt.addEventListener("mouseout", function() {
-    requestOptionTxt.setAttribute("style", "background-color: bisque");
-})
-*/
+
 //======================================================================================
 sendButton.addEventListener("click", function() {
     
     var solutionsVal = document.getElementById("solution").value,
         maxPriceVal = document.getElementById("price").value,
-        saleCountryVal = document.getElementById("country").value,
+        //saleCountryVal = document.getElementById("country").value,
         stopValUser = document.getElementById("stopNum").value;
     
     if(document.getElementById("resultContent") !== null) {
@@ -123,9 +121,9 @@ sendButton.addEventListener("click", function() {
     if (maxPriceVal != "") {
         jsonRequest.request["maxPrice"] = "USD" + maxPriceVal;
     };
-    if (saleCountryVal != "") {
+/*    if (saleCountryVal != "") {
         jsonRequest.request["saleCountry"] = saleCountryVal.toUpperCase();
-    };
+    }; */
     if (solutionsVal != "") {
         jsonRequest.request["solutions"] = parseInt(solutionsVal);
         getData(jsonRequest);
@@ -182,11 +180,13 @@ function getData(jsonRequestObj) {
                 document.getElementsByClassName("line")[idx].style.display = "none";    
             }
             var resultDiv = document.createElement("div");
+            var resultHeader = document.createElement("h3");
             var node = document.createTextNode("Airfare Results: ");
             resultDiv.setAttribute("id", "resultContent");
-            resultDiv.setAttribute("class", "resultContent");
-            resultDiv.appendChild(node);
+            resultHeader.setAttribute("id", "resultHeader");
+            resultHeader.appendChild(node);
             document.getElementById("main").appendChild(resultDiv);
+            resultDiv.appendChild(resultHeader);
             
             if (xhr.status == 200 || xhr.status == 304) {
                 var results = JSON.parse(xhr.responseText);
@@ -209,20 +209,26 @@ function getData(jsonRequestObj) {
                     console.log(finalResult);
                     
                     var resultTable = document.createElement("table");
+                    var resultTableHeader = document.createElement("th");
                     var tableNode = document.createTextNode(finalResult.length + " results are found");
-                    resultTable.appendChild(tableNode);
+                    resultTableHeader.appendChild(tableNode);
+                    resultTableHeader.setAttribute("class", "resultTableHeader");
+                    resultTable.appendChild(resultTableHeader);
                     resultTable.setAttribute("id", "resultTable");
                     document.getElementById("resultContent").appendChild(resultTable);
                     
                     for (var i = 0; i < finalResult.length; i++) {
                         stops = finalResult[i].slice[0].segment.length;
-                        resultText = "</br>" + "Total Price: " + finalResult[i].saleTotal + "</br>" + "Flight Duration: " + finalResult[i].slice[0].duration + " mins" + "</br>";
-                        for (var j = 0; j < stops; j++) {                    
-                            resultText = resultText + finalResult[i].slice[0].segment[j].flight.carrier + finalResult[i].slice[0].segment[j].flight.number + " from: " + finalResult[i].slice[0].segment[j].leg[0].origin + "-->" + "to: " + finalResult[i].slice[0].segment[j].leg[0].destination + "</br>" + "Arrival Time: " + setLocaleTime(finalResult[i].slice[0].segment[j].leg[0].arrivalTime) + "</br>" +  "Departure Time: " + setLocaleTime(finalResult[i].slice[0].segment[j].leg[0].departureTime) + "</br>";
+                        var resultTr = document.getElementById("resultTable");
+                        createTr("options", resultTr, "Option#" + (i + 1));
+                        createTr("price", resultTr, "Total Price: " + finalResult[i].saleTotal);
+                        createTr("flightDuration", resultTr, "Flight Duration: " + finalResult[i].slice[0].duration + " mins");
+                        for (var j = 0; j < stops; j++) {
+                            createTr("iteration", resultTr, finalResult[i].slice[0].segment[j].flight.carrier + finalResult[i].slice[0].segment[j].flight.number + " from: " + finalResult[i].slice[0].segment[j].leg[0].origin + "-->" + "to: " + finalResult[i].slice[0].segment[j].leg[0].destination);
+                            createTr("arrivalTime", resultTr, "Arrival Time: " + setLocaleTime(finalResult[i].slice[0].segment[j].leg[0].arrivalTime));
+                            createTr("departureTime", resultTr, "Departure Time: " + setLocaleTime(finalResult[i].slice[0].segment[j].leg[0].departureTime));
                         }
-                        var resultTr = document.getElementById("resultTable").insertRow(i);
-                        var trText = resultTr.insertCell(0);
-                        trText.innerHTML = "</br>" + "Option# " + (i + 1) + resultText;
+                        
                     }
                     
                 }
