@@ -132,7 +132,7 @@ sendButton.addEventListener("click", function() {
                 {
                     origin: document.getElementById("origin").value.toUpperCase(),
                     destination: document.getElementById("destination").value.toUpperCase(),
-                    date: document.getElementById("date").value                
+                    date: document.getElementById("leaveDate").value                
                 }
             ],
             refundable: document.getElementById("refund").checked
