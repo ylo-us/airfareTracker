@@ -2,6 +2,7 @@ var sendButton = document.getElementById("getRequest");
 var requestOption = document.getElementById("requestOptionTxt");
 var requestContent = document.getElementById("optionsContent");
 var divContent = document.getElementById("content");
+var tripMode = document.getElementById("trips");
 var optionCollapse = true;
 createSelections("adultNum", 10, 1);
 createSelections("childNum", 10);
@@ -42,8 +43,15 @@ function setMinDate() {
     } else {
         month = month.toString();
     }
+    if (day < 10) {
+        day = "0" + day.toString();
+    } else {
+        day = day.toString();
+    }
     var minDate = year + "-" + month + "-" + day;
-    document.getElementById("date").setAttribute("min", minDate);
+    document.getElementById("leaveDate").setAttribute("min", minDate);
+    document.getElementById("leaveDate").setAttribute("value", minDate);
+    document.getElementById("returnDate").setAttribute("min", minDate);
 }
 
 //======================================================================================
@@ -55,6 +63,29 @@ function setLocaleTime(timeStr) {
     return timeStr;
     
 }
+
+//======================================================================================
+function createTr(className, tableObj, insertedTxt) {
+    var tr = tableObj.insertRow(-1);
+    tr.setAttribute("class", className);
+    var trTxt = tr.insertCell(0);
+    trTxt.innerHTML = insertedTxt;
+}
+
+//======================================================================================
+tripMode.addEventListener("click", function() {
+    var returnDateLabel = document.getElementById("returnDateLabel");
+    var returnDate = document.getElementById("returnDate");
+    
+    if (document.getElementById("oneWay").checked) {
+        returnDateLabel.setAttribute("style", "display: none");
+    }
+    else if (document.getElementById("roundTrip").checked) {   
+        returnDateLabel.setAttribute("style", "display: block");
+        returnDate.setAttribute("min", document.getElementById("leaveDate").value);  
+        console.log(document.getElementById("leaveDate").value);
+    }
+})
 
 //======================================================================================
 requestOption.addEventListener("click", function() {
@@ -73,15 +104,6 @@ requestOption.addEventListener("click", function() {
         divContent.setAttribute("style", "overflow: hidden;");
     }
 })
-
-//======================================================================================
-function createTr(className, tableObj, insertedTxt) {
-    var tr = tableObj.insertRow(-1);
-    tr.setAttribute("class", className);
-    var trTxt = tr.insertCell(0);
-    trTxt.innerHTML = insertedTxt;
-}
-
 
 //======================================================================================
 sendButton.addEventListener("click", function() {
@@ -212,7 +234,6 @@ function getData(jsonRequestObj) {
                     var resultTableHeader = document.createElement("th");
                     var tableNode = document.createTextNode(finalResult.length + " results are found");
                     resultTableHeader.appendChild(tableNode);
-                    resultTableHeader.setAttribute("class", "resultTableHeader");
                     resultTable.appendChild(resultTableHeader);
                     resultTable.setAttribute("id", "resultTable");
                     document.getElementById("resultContent").appendChild(resultTable);

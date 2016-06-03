@@ -10,58 +10,73 @@
             <h1>Flight Ticket Tracker</h1>
             <div id="userInput">
                 </br>
-                <div>
-                    <label>From: </label><input type="text" class="inputAirport" id="origin" value="" placeholder="City Code Here. Ex: SFO"> </br> </br>
-                <label>To: </label><input type="text" class="inputAirport" id="destination" value="" placeholder="City Code Here. Ex: SFO">
-                <a id="cityCode" href="http://www.airportcodes.us/us-airports.htm" target="_blank">Looking for City Code?</a>
-                </br> </br>
-                Date: <input type="date" id="date">
-                </br> </br>
+                <div id="trips">
+                    <label>
+                        <input type="radio" name="tripMode" id="oneWay" value="oneWay" checked> One-Way
+                    </label>
+                    <label>
+                        <input type="radio" name="tripMode" id="roundTrip" value="roundTrip"> Round-Trip
+                    </label>
                 </div>
-                <div id="maxSolution">Max # of Searches: 
-                    <input type="text" id="solution" value="">
-                </div>
-                </br>
-
-                <table>
-                    <td id="adultNum">Adult: </td>
-                    <td id="childNum">Child: </td>
-                    <td id="stopNum">Stops: </td>
-                </table>                
-
-                </br>
-                <div id="options" background="#E0E1EF" class="optionSection" aria-expanded="false">
-                    <h4 id="requestOptionTxt"><i>Request Options</i></h4>
-                    <div id="content" style="overflow: hidden; display: none">
-                        <table id="optionsContent" calss="control-table" style="margin-top: 0px;">
-                            <tbody>
-                                <tr>
-                                    <td colspan="3" class="labeled-control">
-                                        <div id="maxPrice">Budget (USD): 
-                                            <input type="text" id="price" placeholder="e.g. 300" value=""/>
-                                        </div>
-                                    </td>
-                                </tr>
-                           <!-- <tr>
-                                    <td>
-                                        <div id="saleCountry">Sale Country: 
-                                            <input type="text" id="country" value="" style="text-transform:uppercase"/>
-                                        </div>
-                                    </td>
-                                </tr> -->
-                                <tr>
-                                    <td>
-                                        <div id="refundable">Refundable? 
-                                            <input type="checkbox" id="refund">
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                </br></br>
+                <form>
+                    <div>
+                        <label>From: </label><input type="text" class="inputAirport" id="origin" value="" placeholder="City Code Here. Ex: SFO"> </br> </br>
+                        <label>To: </label><input type="text" class="inputAirport" id="destination" value="" placeholder="City Code Here. Ex: SFO">
+                        <a id="cityCode" href="http://www.airportcodes.us/us-airports.htm" target="_blank">Looking for City Code?</a>
+                        </br> 
+                        </br>
+                        <div>
+                            <span>
+                                <label class="dateLabel">Leave Date: <input type="date" id="leaveDate"></label>
+                                <label class="dateLabel" id="returnDateLabel" style="display: none">Return Date: <input type="date" id="returnDate"></label>
+                            </span>
+                            
+                        </div>
+                        </br> 
+                        </br>
                     </div>
-                </div>
-                
-            </form>
+                    <div id="maxSolution">Max # of Searches: 
+                        <input type="text" id="solution" value="">
+                    </div>
+                    </br>
+                    <table>
+                        <td id="adultNum">Adult: </td>
+                        <td id="childNum">Child: </td>
+                        <td id="stopNum">Stops: </td>
+                    </table>                
+                    </br>
+                    <div id="options" background="#E0E1EF" class="optionSection" aria-expanded="false">
+                        <h4 id="requestOptionTxt"><i>Request Options</i></h4>
+                        <div id="content" style="overflow: hidden; display: none">
+                            <table id="optionsContent" calss="control-table" style="margin-top: 0px;">
+                                <tbody>
+                                    <tr>
+                                        <td colspan="3" class="labeled-control">
+                                            <div id="maxPrice">Budget (USD): 
+                                                <input type="text" id="price" placeholder="e.g. 300" value=""/>
+                                            </div>
+                                        </td>
+                                    </tr>
+                               <!-- <tr>
+                                        <td>
+                                            <div id="saleCountry">Sale Country: 
+                                                <input type="text" id="country" value="" style="text-transform:uppercase"/>
+                                            </div>
+                                        </td>
+                                    </tr> -->
+                                    <tr>
+                                        <td>
+                                            <div id="refundable">Refundable? 
+                                                <input type="checkbox" id="refund">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </form>
             </br>
             <input type="button" id="getRequest" value="Get Result!"/> </br> </br>
             <div class="loader">

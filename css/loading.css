@@ -63,12 +63,12 @@ label {
 
 #userInput {
     float: left;
-    width: 50%;
+    width: 30%;
 }
 
 #resultContent {
     float: right;
-    width: 50%;
+    width: 70%;
 }
 
 
