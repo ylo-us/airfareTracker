@@ -3,11 +3,25 @@ body {
     background-color: azure;
 }
 
+form {
+    margin-bottom: 10px;
+}
+
+.box, .dateLabel {
+    margin-top: 15px;
+    margin-bottom: 15px;
+
+}
+
+.optionSection {
+    display: inline-block;  
+}
+
 h1 {
     text-align: center;
 }
 
-h4:hover {
+.requestOption:hover {
     background-color: bisque;
     text-decoration: underline;
     text-decoration-color: aqua;
@@ -15,8 +29,9 @@ h4:hover {
 
 label {
     display: inline-block;
-    float: left;
     text-align: left;
+    margin-bottom: 5px;
+    margin-right: 5px;
 }
 
 #origin {
@@ -51,6 +66,8 @@ label {
 }
 
 .inputAirport {
+    margin-top: 5px;
+    margin-bottom: 5px;
     width: 200px;
     text-transform: uppercase;
     text-align: left;
@@ -63,14 +80,23 @@ label {
 
 #userInput {
     float: left;
-    width: 30%;
+    width: 40%;
 }
 
 #resultContent {
     float: right;
-    width: 70%;
+    width: 60%;
 }
 
+#resultLeaveTrip {
+    float: left;
+    width: 50%;
+}
+
+#resultReturnTrip {
+    float: right;
+    width: 50%;
+}
 
 .line {
   animation: expand 1s ease-in-out infinite;

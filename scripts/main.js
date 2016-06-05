@@ -1,9 +1,10 @@
 var sendButton = document.getElementById("getRequest");
-var requestOption = document.getElementById("requestOptionTxt");
+var requestOption = document.getElementById("options");
 var requestContent = document.getElementById("optionsContent");
 var divContent = document.getElementById("content");
 var tripMode = document.getElementById("trips");
 var optionCollapse = true;
+var finalResultLeaveTrip = [];
 createSelections("adultNum", 10, 1);
 createSelections("childNum", 10);
 createSelections("stopNum", 4, 0);
@@ -65,7 +66,7 @@ function setLocaleTime(timeStr) {
 }
 
 //======================================================================================
-function createTr(className, tableObj, insertedTxt) {
+function createLabel(className, formObj, insertedTxt) {
     var tr = tableObj.insertRow(-1);
     tr.setAttribute("class", className);
     var trTxt = tr.insertCell(0);
@@ -92,15 +93,13 @@ requestOption.addEventListener("click", function() {
     
     optionCollapse = !optionCollapse;
     if(optionCollapse) {
-        //requestOption.setAttribute("class", "goog-zippy-header goog-zippy-collapsed");
         requestOption.setAttribute("aria-expanded", "false");
-        requestContent.setAttribute("style", "margin-top: -120px;");     
+        //requestContent.setAttribute("style", "margin-top: -10px;");     
         divContent.setAttribute("style", "overflow: hidden; display: none;");
     }
     else {
-        //requestOption.setAttribute("class", "goog-zippy-header goog-zippy-expanded");
         requestOption.setAttribute("aria-expanded", "true");
-        requestContent.setAttribute("style", "margin-top: 0px;");
+        //requestContent.setAttribute("style", "margin-top: 0px;");
         divContent.setAttribute("style", "overflow: hidden;");
     }
 })
@@ -113,13 +112,19 @@ sendButton.addEventListener("click", function() {
         //saleCountryVal = document.getElementById("country").value,
         stopValUser = document.getElementById("stopNum").value;
     
-    if(document.getElementById("resultContent") !== null) {
+    if(document.getElementById("resultLeaveTrip") !== null) {
         var parent = document.getElementById("main");
-        var child = document.getElementById("resultContent");
+        var child = document.getElementById("resultLeaveTrip");
         parent.removeChild(child);
     } 
     
-    jsonRequest = {
+    if(document.getElementById("resultReturnTrip") !== null) {
+        var parent = document.getElementById("main");
+        var child = document.getElementById("resultReturnTrip");
+        parent.removeChild(child);
+    } 
+    
+    jsonRequestLeaveTrip = {
         request: {
              passengers: {
                 adultCount: parseInt(document.getElementById("select_adultNum").value),
@@ -141,14 +146,15 @@ sendButton.addEventListener("click", function() {
     
 
     if (maxPriceVal != "") {
-        jsonRequest.request["maxPrice"] = "USD" + maxPriceVal;
+        jsonRequestLeaveTrip.request["maxPrice"] = "USD" + maxPriceVal;
     };
 /*    if (saleCountryVal != "") {
         jsonRequest.request["saleCountry"] = saleCountryVal.toUpperCase();
     }; */
     if (solutionsVal != "") {
-        jsonRequest.request["solutions"] = parseInt(solutionsVal);
-        getData(jsonRequest);
+        jsonRequestLeaveTrip.request["solutions"] = parseInt(solutionsVal);
+        
+        getData(jsonRequestLeaveTrip);
     }
     else {
         alert("Please tell me the max number of results you want to know");
@@ -180,6 +186,8 @@ sendButton.addEventListener("click", function() {
 
 })
 
+//======================================================================================
+
 function getData(jsonRequestObj) {
     
     console.log(jsonRequestObj);
@@ -201,15 +209,7 @@ function getData(jsonRequestObj) {
             for (var idx = 0; idx < document.getElementsByClassName("line").length; idx++) {
                 document.getElementsByClassName("line")[idx].style.display = "none";    
             }
-            var resultDiv = document.createElement("div");
-            var resultHeader = document.createElement("h3");
-            var node = document.createTextNode("Airfare Results: ");
-            resultDiv.setAttribute("id", "resultContent");
-            resultHeader.setAttribute("id", "resultHeader");
-            resultHeader.appendChild(node);
-            document.getElementById("main").appendChild(resultDiv);
-            resultDiv.appendChild(resultHeader);
-            
+                        
             if (xhr.status == 200 || xhr.status == 304) {
                 var results = JSON.parse(xhr.responseText);
                 console.log(results);
@@ -218,7 +218,7 @@ function getData(jsonRequestObj) {
                 
                 if (results.trips.tripOption !== undefined) {
                     var numResults = results.trips.tripOption.length;
-                    var finalResult = [];
+                    
                     
                     for (var i = 0; i < numResults; i++) {
                         stops = results.trips.tripOption[i].slice[0].segment.length - 1;
@@ -230,13 +230,13 @@ function getData(jsonRequestObj) {
                     
                     console.log(finalResult);
                     
+                    var resultBr = document.createElement("br");
+                    var resultForm = document.createElement("form");
+                    var resultSelectButton = document.createElement("button");
+                    
                     var resultTable = document.createElement("table");
                     var resultTableHeader = document.createElement("th");
-                    var tableNode = document.createTextNode(finalResult.length + " results are found");
-                    resultTableHeader.appendChild(tableNode);
-                    resultTable.appendChild(resultTableHeader);
-                    resultTable.setAttribute("id", "resultTable");
-                    document.getElementById("resultContent").appendChild(resultTable);
+                    
                     
                     for (var i = 0; i < finalResult.length; i++) {
                         stops = finalResult[i].slice[0].segment.length;

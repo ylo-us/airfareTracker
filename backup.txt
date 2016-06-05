@@ -1,0 +1,95 @@
+function getData(jsonRequestObj) {
+    
+    console.log(jsonRequestObj);
+    
+    var holder = JSON.stringify(jsonRequestObj);
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "https://www.googleapis.com/qpxExpress/v1/trips/search?key=AIzaSyCdpM_bMNykHOs2j4HDfOSsgCR8TE5HCqE");
+    xhr.setRequestHeader("Content-Type", "application/json");
+    
+    for (var idx = 0; idx < document.getElementsByClassName("line").length; idx++) {
+            document.getElementsByClassName("line")[idx].style.display = "inline-block";    
+    } 
+
+    xhr.send(holder);
+    
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4) {
+            //create result block
+            for (var idx = 0; idx < document.getElementsByClassName("line").length; idx++) {
+                document.getElementsByClassName("line")[idx].style.display = "none";    
+            }
+            var resultDiv = document.createElement("div");
+            var resultHeader = document.createElement("h3");
+            var node = document.createTextNode("Airfare Results: ");
+            resultDiv.setAttribute("id", "resultContent");
+            resultHeader.setAttribute("id", "resultHeader");
+            resultHeader.appendChild(node);
+            document.getElementById("main").appendChild(resultDiv);
+            resultDiv.appendChild(resultHeader);
+            
+            if (xhr.status == 200 || xhr.status == 304) {
+                var results = JSON.parse(xhr.responseText);
+                console.log(results);
+                var stops = 0;
+                var resultText = "";   
+                
+                if (results.trips.tripOption !== undefined) {
+                    var numResults = results.trips.tripOption.length;
+                    var finalResult = [];
+                    
+                    for (var i = 0; i < numResults; i++) {
+                        stops = results.trips.tripOption[i].slice[0].segment.length - 1;
+                        console.log(document.getElementById("select_stopNum").value);
+                        if (stops <= document.getElementById("select_stopNum").value) {
+                            finalResult.push(results.trips.tripOption[i]);
+                        }                        
+                    }
+                    
+                    console.log(finalResult);
+                    
+                    var resultTable = document.createElement("table");
+                    var resultTableHeader = document.createElement("th");
+                    var tableNode = document.createTextNode(finalResult.length + " results are found");
+                    resultTableHeader.appendChild(tableNode);
+                    resultTable.appendChild(resultTableHeader);
+                    resultTable.setAttribute("id", "resultTable");
+                    document.getElementById("resultContent").appendChild(resultTable);
+                    
+                    for (var i = 0; i < finalResult.length; i++) {
+                        stops = finalResult[i].slice[0].segment.length;
+                        var resultTr = document.getElementById("resultTable");
+                        createTr("options", resultTr, "Option#" + (i + 1));
+                        createTr("price", resultTr, "Total Price: " + finalResult[i].saleTotal);
+                        createTr("flightDuration", resultTr, "Flight Duration: " + finalResult[i].slice[0].duration + " mins");
+                        for (var j = 0; j < stops; j++) {
+                            createTr("iteration", resultTr, finalResult[i].slice[0].segment[j].flight.carrier + finalResult[i].slice[0].segment[j].flight.number + " from: " + finalResult[i].slice[0].segment[j].leg[0].origin + "-->" + "to: " + finalResult[i].slice[0].segment[j].leg[0].destination);
+                            createTr("arrivalTime", resultTr, "Arrival Time: " + setLocaleTime(finalResult[i].slice[0].segment[j].leg[0].arrivalTime));
+                            createTr("departureTime", resultTr, "Departure Time: " + setLocaleTime(finalResult[i].slice[0].segment[j].leg[0].departureTime));
+                        }
+                        
+                    }
+                    
+                }
+                else {
+                    var resultTable = document.createElement("table");
+                    var tableNode = document.createTextNode("No Result Was Found");
+                    resultTable.appendChild(tableNode);
+                    resultTable.setAttribute("id", "resultTable");
+                    document.getElementById("resultContent").appendChild(resultTable);    
+                }                
+            }
+            else {
+                var resultTable = document.createElement("table");
+                var tableNode = document.createTextNode("No Result Was Found");
+                resultTable.appendChild(tableNode);
+                resultTable.setAttribute("id", "resultTable");
+                document.getElementById("resultContent").appendChild(resultTable);
+                var resultTr = document.getElementById("resultTable").insertRow(i);
+                var trText = resultTr.insertCell(0);
+                trText.innerHTML = "Ooops!! Something went wrong..." + "</br>" + "Please Double Check Your Input Fields" + "</br>" + "HTTP status code: " + xhr.status;
+            }
+        }
+        
+    }
+}

@@ -8,77 +8,142 @@
     <body>
         <div id="main">
             <h1>Flight Ticket Tracker</h1>
-            <div id="userInput">
-                </br>
-                <div id="trips">
-                    <label>
+            <div id="userInput" class="box">
+                <div id="trips" class="box">
+                    <form>
                         <input type="radio" name="tripMode" id="oneWay" value="oneWay" checked> One-Way
-                    </label>
-                    <label>
                         <input type="radio" name="tripMode" id="roundTrip" value="roundTrip"> Round-Trip
-                    </label>
+                        </br>
+                        <label>From: <input type="text" class="inputAirport" id="origin" value="" placeholder="City Code Here. Ex: SFO"></label>
+                        <label>To: <input type="text" class="inputAirport" id="destination" value="" placeholder="City Code Here. Ex: SFO"></label>
+                        <a id="cityCode" href="http://www.airportcodes.us/us-airports.htm" target="_blank">Looking for City Code?</a>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>Departing Date:</td>
+                                    <td><input type="date" id="leaveDate"></td>
+                                </tr>
+                                <tr>
+                                    <td>Return Date: </td>
+                                    <td><input type="date" id="returnDate"></td>
+                                </tr>
+                                <tr>
+                                    <td>Max # of Results:</td>
+                                    <td><input type="text" id="solution" value=""></td>
+                                </tr>
+                            </tbody>
+                        </table>    
+                    </form>
                 </div>
-                </br></br>
-                <form>
-                    <div>
-                        <label>From: </label><input type="text" class="inputAirport" id="origin" value="" placeholder="City Code Here. Ex: SFO"></br></br>
-                        <label>To: </label><input type="text" class="inputAirport" id="destination" value="" placeholder="City Code Here. Ex: SFO">
-                        <a id="cityCode" href="http://www.airportcodes.us/us-airports.htm" target="_blank">Looking for City Code?</a></br></br>
-                        <label class="dateLabel">Leave Date: <input type="date" id="leaveDate"></label></br> </br>
-                        <label class="dateLabel" id="returnDateLabel" style="display: none">Return Date: <input type="date" id="returnDate"></label></br></br>
-                    </div>
-                    <div id="maxSolution">Max # of Searches: 
-                        <input type="text" id="solution" value="">
-                    </div>
-                    </br>
-                    <table>
-                        <td id="adultNum">Adult: </td>
-                        <td id="childNum">Child: </td>
-                        <td id="stopNum">Stops: </td>
-                    </table>                
-                    </br>
-                    <div id="options" background="#E0E1EF" class="optionSection" aria-expanded="false">
-                        <h4 id="requestOptionTxt"><i>Request Options</i></h4>
+                    <div id="options"  class="optionSection" aria-expanded="false">
+                        <h4 class="requestOption"><i>Request Options</i></h4>
                         <div id="content" style="overflow: hidden; display: none">
-                            <table id="optionsContent" calss="control-table" style="margin-top: 0px;">
+                            <table id="optionsContent">
                                 <tbody>
                                     <tr>
-                                        <td colspan="3" class="labeled-control">
-                                            <div id="maxPrice">Budget (USD): 
-                                                <input type="text" id="price" placeholder="e.g. 300" value=""/>
-                                            </div>
+                                        <td>
+                                            <label id="adultNum">Adult: </label>
+                                            <label id="childNum">Child: </label>
+                                            <label id="stopNum">Stops: </label>
                                         </td>
                                     </tr>
-                               <!-- <tr>
-                                        <td>
-                                            <div id="saleCountry">Sale Country: 
-                                                <input type="text" id="country" value="" style="text-transform:uppercase"/>
-                                            </div>
-                                        </td>
-                                    </tr> -->
                                     <tr>
                                         <td>
-                                            <div id="refundable">Refundable? 
-                                                <input type="checkbox" id="refund">
-                                            </div>
+                                            <label>Budget (USD):</label><input type="text" id="price" placeholder="e.g. 300" value="">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label>Refundable?</label><input type="checkbox" id="refund">
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                </form>
-            </br>
-            <input type="button" id="getRequest" value="Get Result!"/> </br> </br>
-            <div class="loader">
-              <div class="line"></div>
-              <div class="line"></div>
-              <div class="line"></div>
-              <div class="line"></div>
+                <div class="box">
+                    <input type="button" id="getRequest" value="Get Result!"/> </br> </br>
+                    <div class="loader">
+                      <div class="line"></div>
+                      <div class="line"></div>
+                      <div class="line"></div>
+                      <div class="line"></div>
+                    </div>
+                </div>
             </div>
-            </br>
+            <div id="resultContent">
+                <div id="resultLeaveTrip">
+                    <form id="trip0">
+                        <fieldset>
+                            <legend>Option1</legend>
+                            <div>
+                                <button>Select0</button>
+                            </div>
+                            <div>
+                                <label>line1</label>
+                            </div>
+                            <div>
+                                <label>line2</label>
+                            </div>
+                        </fieldset>
+                    </form>
+                    <form id="trip1">
+                        <fieldset>
+                            <legend>Option2</legend>
+                                <div>
+                                    <button>Select1</button>
+                                </div>
+                                <div>
+                                    <label>line3</label>
+                                </div>
+                                <div>
+                                    <label>line4</label>
+                                </div>
+                        </fieldset>
+                    </form>
+                </div>
+                <div id="resultReturnTrip">
+                </div>
+            </div>
         </div>
-        <script src="scripts\main.js"></script>
+
+
+            <script type="text/javascript">
+                var myForm = document.createElement("form");
+                myForm.setAttribute("id", "trip2");
+                var myFieldSet = document.createElement("fieldset");
+                myFieldSet.setAttribute("id", "fieldset2");
+                var myLegend = document.createElement("legend");
+                var legendTxt = document.createTextNode("Option3");
+                myLegend.appendChild(legendTxt);
+                myFieldSet.appendChild(myLegend);
+                myForm.appendChild(myFieldSet);
+                document.getElementById("resultLeaveTrip").appendChild(myForm);
+                
+                var myDiv = document.createElement("div");
+                myDiv.setAttribute("id", "div0");
+                var myButton = document.createElement("button");
+                myButton.setAttribute("id", "button0");
+                var buttonTxt = document.createTextNode("Select2");
+                myButton.appendChild(buttonTxt);
+                myDiv.appendChild(myButton);
+                myFieldSet.appendChild(myDiv);
+                
+                for (var i = 1; i < 3; i++) {
+                    var myLabel = document.createElement("label");
+                    var myDiv = document.createElement("div");
+                    myLabel.setAttribute("id", "label"+i);
+                    myDiv.setAttribute("id", "div"+i);
+                    var labelTxt = document.createTextNode("line"+i);
+                    myLabel.appendChild(labelTxt);
+                    myDiv.appendChild(myLabel);
+                    myFieldSet.appendChild(myDiv);
+                }
+                
+                
+                
+            </script>
+
 <!--
         <script src="scripts\sandbox.js"></script>
         <script src="scripts\json2.js"></script>
