@@ -301,7 +301,11 @@ function selectTrip(id) {
     }
     else if (document.getElementById("roundTrip").checked && id.substring(0,6).toLowerCase() === "return") {
         makeSelection(returnTrips);
+        console.log(leavePrice);
+        console.log(Math.round(parseFloat(finalReturnResult[selectionIdx].saleTotal.substring(3)) * 100) / 100);
         var totalPrice = leavePrice + parseFloat(finalReturnResult[selectionIdx].saleTotal.substring(3));
+        totalPrice = Math.round(totalPrice * 100) /100;
+        console.log(totalPrice);
         var allAmount = document.createTextNode("$" + totalPrice);
         p.appendChild(allAmount);
     }
